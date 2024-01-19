@@ -3,14 +3,15 @@ namespace TruCoNsole.Domain.Enum;
 
 public enum EValueCard : byte
 {
-    C3 = 0, 
-    C2 = 1,
-    CA = 3,
-    CK = 4,
-    CQ = 5,
-    CJ = 6,
-    C7 = 7,
-    C6 = 8,
-    C5 = 9,
-    C4 = 10,
+    Manilha = 11,
+    C3 = 10, 
+    C2 = 9,
+    CA = 8,
+    CK = 7,
+    CQ = 6,
+    CJ = 5,
+    C7 = 4,
+    C6 = 3,
+    C5 = 2,
+    C4 = 1,
 }

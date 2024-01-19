@@ -1,7 +1,4 @@
 ﻿
-using System;
-using TruCoNsole.Domain.Enum;
-
 namespace TruCoNsole.Domain.Entity;
 
 public class Deck

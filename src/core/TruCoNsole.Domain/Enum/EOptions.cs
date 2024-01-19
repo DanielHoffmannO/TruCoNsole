@@ -7,7 +7,9 @@ public enum EOption
     Carta2 = 2,
     Carta3 = 3,
 
-    Truco = 4,
+    AceitarTruco = 4,
 
-    Sair = 5,
+    Truco = 5,
+
+    Sair = 6,
 }

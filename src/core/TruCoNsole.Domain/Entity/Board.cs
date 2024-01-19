@@ -1,5 +1,5 @@
 ﻿
-using System;
+using TruCoNsole.Domain.Enum;
 
 namespace TruCoNsole.Domain.Entity;
 
@@ -13,6 +13,10 @@ public class Board
         Deck.Cards = Deck.Cards.OrderBy(x => random.Next()).ToList();
 
         Tombo = Deck.Cards[0];
+
+        var manilha = Tombo.Value == EValueCard.C3 ? EValueCard.C4 : (Tombo.Value + 1);
+        Deck.Cards.ForEach(x => x.Value = x.Value == manilha ? EValueCard.Manilha : x.Value);
+
         PeopleCards = Deck.Cards.Skip(1).Take(3).ToArray();
         BotCards = Deck.Cards.Skip(4).Take(3).ToArray();
     }
