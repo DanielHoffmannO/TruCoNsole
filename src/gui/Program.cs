@@ -1,51 +1,58 @@
-﻿
-using TruCoNsole.Application.Service;
+﻿using TruCoNsole.Application.Service;
 using TruCoNsole.Domain.Entity;
+using System;
+using System.Threading.Tasks;
 
-namespace TruCoNsole;
-
-class Program
+namespace TruCoNsole
 {
-    private static readonly Random random = new();
-
-    static async Task Main()
+    class Program
     {
-        Console.OutputEncoding = System.Text.Encoding.UTF8;
-        Console.BackgroundColor = ConsoleColor.DarkGreen;
-        Console.ForegroundColor = ConsoleColor.Black;
+        private static readonly Random random = new();
 
-        var board = new Board();
-
-        while (board.People.Pontos < 12 || board.Bot.Pontos < 12 || board.Sair)
+        static async Task Main()
         {
-            while (board.People.Tentos < 2 && board.Bot.Tentos < 2 || board.Sair)
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.BackgroundColor = ConsoleColor.DarkGreen;
+            Console.ForegroundColor = ConsoleColor.Black;
+
+            var board = new Board();
+            await PlayGame(board);
+        }
+
+        static async Task PlayGame(Board board)
+        {
+            while (board.Player.Points < 12 || board.Opponent.Points < 12 || board.Quit)
             {
-                TelaService.ExibirCartas(board);
-
-                if (board.PeopleVez)
+                while (board.Player.Tentos < 2 && board.Opponent.Tentos < 2 || board.Quit)
                 {
-                    board.PeopleDecidir();
-                    TelaService.ExibirCartas(board);
-                    await Task.Delay(1000);
+                    DisplayService.DisplayCards(board);
 
-                    board.BotDecidir();
-                    await Task.Delay(1000);
-                    TelaService.ExibirCartas(board);
+                    if (board.IsPlayerTurn)
+                    {
+                        board.PlayerDecide();
+                        DisplayService.DisplayCards(board);
+
+                        board.OpponentDecide();
+                        await Task.Delay(1000);
+                        DisplayService.DisplayCards(board);
+                        await Task.Delay(1000);
+                    }
+                    else
+                    {
+                        board.OpponentDecide();
+                        await Task.Delay(1000);
+                        DisplayService.DisplayCards(board);
+                        await Task.Delay(1000);
+
+                        board.PlayerDecide();
+                        DisplayService.DisplayCards(board);
+                        await Task.Delay(1000);
+                    }
+
+                    board.SetTento();
                 }
-                else
-                {
-                    board.BotDecidir();
-                    await Task.Delay(1000);
-                    TelaService.ExibirCartas(board);
-
-                    board.PeopleDecidir();
-                    TelaService.ExibirCartas(board);
-                    await Task.Delay(1000);
-                }
-
-                board.SetTento();
+                board.SetPoint();
             }
-            board.SetPonto();
         }
     }
 }

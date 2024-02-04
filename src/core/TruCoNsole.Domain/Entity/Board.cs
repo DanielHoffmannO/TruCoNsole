@@ -6,20 +6,20 @@ namespace TruCoNsole.Domain.Entity;
 
 public class Board
 {
-    private static readonly Random random = new();
+    private static readonly Random Random = new();
 
     private void Shuffle()
     {
         Deck = new Deck();
-        Deck.Cards = Deck.Cards.OrderBy(x => random.Next()).ToList();
+        Deck.Cards = Deck.Cards.OrderBy(x => Random.Next()).ToList();
 
         SetTombo();
 
-        People ??= new Player(Deck.Cards.Skip(1).Take(3).ToArray());
-        Bot ??= new Player(Deck.Cards.Skip(4).Take(3).ToArray());
+        Player ??= new Player(Deck.Cards.Skip(1).Take(3).ToArray());
+        Opponent ??= new Player(Deck.Cards.Skip(4).Take(3).ToArray());
 
-        People.Cards = Deck.Cards.Skip(1).Take(3).ToArray();
-        Bot.Cards = Deck.Cards.Skip(4).Take(3).ToArray();
+        Player.Cards = Deck.Cards.Skip(1).Take(3).ToArray();
+        Opponent.Cards = Deck.Cards.Skip(4).Take(3).ToArray();
     }
 
     private void SetTombo()
@@ -29,103 +29,104 @@ public class Board
         var manilha = Tombo.Value == EValueCard.C3 ? EValueCard.C4 : (Tombo.Value + 1);
         Deck.Cards.ForEach(x => x.Manilha = x.Value == manilha);
     }
+
     public Board() => Shuffle();
 
     public Deck Deck { get; set; }
     public Card Tombo { get; set; }
-    public Player People { get; set; }
-    public Player Bot { get; set; }
+    public Player Player { get; set; }
+    public Player Opponent { get; set; }
 
-    public bool PeopleVez { get; set; } = random.Next(2) == 1;
-    public byte ValorJogo { get; set; } = 1;
-    public bool Sair { get; set; }
+    public bool IsPlayerTurn { get; set; } = Random.Next(2) == 1;
+    public byte GameValue { get; set; } = 1;
+    public bool Quit { get; set; }
 
     public void SetTento()
     {
-        var people = People.Cards[People.Escolha];
-        var bot = Bot.Cards[Bot.Escolha];
+        var playerCard = Player.Cards[Player.Choice];
+        var opponentCard = Opponent.Cards[Opponent.Choice];
 
-        PeopleVez = people.Value > bot.Value || people.Manilha || (people.Value == bot.Value && people.Nipe > bot.Nipe);
-        if (PeopleVez)
-            People.Tentos++;
-        else Bot.Tentos++;
+        IsPlayerTurn = playerCard.Value > opponentCard.Value || playerCard.Manilha || (playerCard.Value == opponentCard.Value && playerCard.Suit > opponentCard.Suit);
+        if (IsPlayerTurn)
+            Player.Tentos++;
+        else
+            Opponent.Tentos++;
 
-        People.Escolha = 255;
-        Bot.Escolha = 255;
+        Player.Choice = 255;
+        Opponent.Choice = 255;
     }
 
-    public void SetPonto()
+    public void SetPoint()
     {
-        if (People.Tentos > Bot.Tentos)
-            People.Pontos++;
-        else Bot.Pontos++;
+        if (Player.Tentos > Opponent.Tentos)
+            Player.Points++;
+        else
+            Opponent.Points++;
 
-        ValorJogo = 1;
-        People.Tentos = 0;
-        Bot.Tentos = 0;
+        GameValue = 1;
+        Player.Tentos = 0;
+        Opponent.Tentos = 0;
 
         Shuffle();
     }
 
-    public Card BotDecidir()
+    public Card OpponentDecide()
     {
         byte randomIndex;
         do
         {
-            randomIndex = (byte)random.Next(0, Bot.Cards.Length);
-        } while (Bot.Cards[randomIndex].Usada);
-        Bot.UsarCarta(randomIndex);
+            randomIndex = (byte)Random.Next(0, Opponent.Cards.Length);
+        } while (Opponent.Cards[randomIndex].Used);
+        Opponent.UseCard(randomIndex);
 
-        return Bot.Cards[randomIndex];
+        return Opponent.Cards[randomIndex];
     }
 
-    public byte PeopleDecidir()
+    public byte PlayerDecide()
     {
         while (true)
         {
             try
             {
-                if (!People.Cards[0].Usada)
-                    Console.WriteLine("1 - Para selecionar a Carta 1");
-                if (!People.Cards[1].Usada)
-                    Console.WriteLine("2 - Para selecionar a Carta 2");
-                if (!People.Cards[2].Usada)
-                    Console.WriteLine("3 - Para selecionar a Carta 3");
+                if (!Player.Cards[0].Used)
+                    Console.WriteLine("1 - To select Card 1");
+                if (!Player.Cards[1].Used)
+                    Console.WriteLine("2 - To select Card 2");
+                if (!Player.Cards[2].Used)
+                    Console.WriteLine("3 - To select Card 3");
 
-                Console.WriteLine("4 - Para aceitar o truco\n" +
-                                  "5 - Para sair do jogo\n");
+                Console.WriteLine("4 - To accept the truco\n" +
+                                  "5 - To quit the game\n");
                 Console.WriteLine("==============================");
 
-
                 Console.Write("<User> ");
-                byte escolha = byte.Parse(Console.ReadLine() ?? "0");
-                byte[] valoresPermitidos = { 1, 2, 3, 4, 5 };
+                byte choice = byte.Parse(Console.ReadLine() ?? "0");
+                byte[] allowedValues = { 1, 2, 3, 4, 5 };
 
-                if (!valoresPermitidos.Contains(escolha))
-                    throw new ArgumentException("Escolha deve ser um valor entre 1 e 5\n");
+                if (!allowedValues.Contains(choice))
+                    throw new ArgumentException("Choice must be a value between 1 and 5\n");
 
-                escolha -= 1;
-                if (People.Cards[escolha].Usada)
-                    throw new ArgumentException("Já usou essa carta\n");
+                choice -= 1;
+                if (Player.Cards[choice].Used)
+                    throw new ArgumentException("Already used this card\n");
 
-                switch ((EOption)escolha)
+                switch ((EOption)choice)
                 {
-                    case EOption.Carta1:
-                    case EOption.Carta2:
-                    case EOption.Carta3:
-                        People.UsarCarta(escolha);
+                    case EOption.Card1:
+                    case EOption.Card2:
+                    case EOption.Card3:
+                        Player.UseCard(choice);
                         break;
 
                     case EOption.Truco:
                         Truco();
                         break;
 
-                    case EOption.Sair:
+                    case EOption.Quit:
                         throw new();
                 }
 
-
-                return escolha;
+                return choice;
             }
             catch (ArgumentException ex)
             {
@@ -140,12 +141,12 @@ public class Board
 
     public void Truco()
     {
-        if (ValorJogo == 1)
-            ValorJogo = 0;
+        if (GameValue == 1)
+            GameValue = 0;
 
-        if (ValorJogo == 12)
-            throw new("Truco é até 12 apenas");
+        if (GameValue == 12)
+            throw new("Truco is up to 12 only");
 
-        ValorJogo = +3;
+        GameValue += 3;
     }
 }

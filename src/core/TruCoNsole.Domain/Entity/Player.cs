@@ -1,30 +1,29 @@
 ﻿
-using System;
 using TruCoNsole.Domain.Entity;
-using TruCoNsole.Domain.Enum;
 
-namespace TruCoConsole.Application.Service;
-
-public class Player
+namespace TruCoConsole.Application.Service
 {
-    public Player(Card[] cards)
+    public class Player
     {
-        Cards = cards;
+        public Player(Card[] cards)
+        {
+            Cards = cards;
+        }
+
+        public byte Points { get; set; }
+        public byte Tentos { get; set; }
+        public byte Choice { get; set; } = 255;
+        public Card[] Cards { get; set; }
+
+        public Card UseCard(byte cardIndex)
+        {
+            Cards[cardIndex].Used = true;
+            Choice = cardIndex;
+            return Cards[cardIndex];
+        }
+
+        public Card[] UsedCards() => Cards.Where(card => card.Used).ToArray();
+
+        public void ResetTentos() => Tentos = 0;
     }
-
-    public byte Pontos { get; set; }
-    public byte Tentos { get; set; }
-    public byte Escolha { get; set; } = 255;
-    public Card[] Cards { get; set; }
-
-    public Card UsarCarta(byte Card)
-    {
-        Cards[Card].Usada = true;
-        Escolha = Card;
-        return Cards[Card];
-    }
-
-    public Card[] CartasUsadas() => Cards.Where(x => x.Usada).ToArray();
-
-    public void ResetTentos() => Tentos = 0;
 }

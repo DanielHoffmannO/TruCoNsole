@@ -3,40 +3,40 @@ using TruCoNsole.Domain.Entity;
 
 namespace TruCoNsole.Application.Service;
 
-public static class TelaService
+public static class DisplayService
 {
-    public static void ExibirCartas(Board board)
+    public static void DisplayCards(Board board)
     {
         Console.Clear();
 
-        ExibirPontos(board.Bot);
-        ExibirCartasBot(board.Bot);
+        DisplayPoints(board.Opponent);
+        DisplayOpponentCards(board.Opponent);
 
-        ExibirCartasTombo(board.Tombo);
+        DisplayTomboCards(board.Tombo);
 
-        ExibirCartasPeople(board.People);
-        ExibirPontos(board.People);
+        DisplayPlayerCards(board.Player);
+        DisplayPoints(board.Player);
     }
 
-    private static void ExibirCartasBot(Player player)
+    private static void DisplayOpponentCards(Player player)
     {
         for (byte linha = 0; linha <= 6; linha++)
         {
             for (byte index = 0; index < player.Cards.Length; index++)
             {
-                if (player.Escolha == index || player.Cards[index].Usada)
+                if (player.Choice == index || player.Cards[index].Used)
                 {
-                    string[] carta = player.Cards[index].MontaCarta();
+                    string[] carta = player.Cards[index].BuildCard();
 
-                    int indice = linha - (player.Escolha != index ? 0 : 2);
+                    int indice = linha - (player.Choice != index ? 0 : 2);
                     string valorExibido = (indice >= 0 && indice < carta.Length) ? carta[indice] : "      ";
                     Console.Write("   " + valorExibido);
                 }
                 else
                 {
-                    string[] carta = player.Cards[index].MontaCartaBunda();
+                    string[] carta = player.Cards[index].BuildBackCard();
 
-                    int indice = linha - (player.Escolha != index ? 0 : 2);
+                    int indice = linha - (player.Choice != index ? 0 : 2);
                     string valorExibido = (indice >= 0 && indice < carta.Length) ? carta[indice] : "      ";
                     Console.Write("   " + valorExibido);
                 }
@@ -46,38 +46,38 @@ public static class TelaService
         Console.WriteLine();
     }
 
-    private static void ExibirPontos(Player player)
+    private static void DisplayPoints(Player player)
     {
-        Console.WriteLine($"==|Pontos ({player.Pontos})|===|Tento ({player.Tentos})|==\n");
+        Console.WriteLine($"==|Pontos ({player.Points})|===|Tento ({player.Tentos})|==\n");
     }
 
-    private static void ExibirCartasTombo(Card cartas)
+    private static void DisplayTomboCards(Card cartas)
     {
         for (int linha = 0; linha <= 4; linha++)
-            Console.WriteLine("            " + cartas.MontaCarta()[linha]);
+            Console.WriteLine("            " + cartas.BuildCard()[linha]);
         Console.WriteLine();
     }
 
-    private static void ExibirCartasPeople(Player player)
+    private static void DisplayPlayerCards(Player player)
     {
         for (byte linha = 0; linha <= 6; linha++)
         {
             for (byte index = 0; index < player.Cards.Length; index++)
             {
-                if (player.Escolha != index && player.Cards[index].Usada)
+                if (player.Choice != index && player.Cards[index].Used)
                 {
-                    string[] carta = player.Cards[index].MontaCartaBunda();
-                    int indice = linha - (player.Escolha == index ? 0 : 2);
+                    string[] carta = player.Cards[index].BuildBackCard();
+                    int indice = linha - (player.Choice == index ? 0 : 2);
                     string valorExibido = (indice >= 0 && indice < carta.Length) ? carta[indice] : "      ";
                     Console.Write("   " + valorExibido);
                 }
                 else
                 {
-                    string[] carta = player.Cards[index].MontaCarta();
+                    string[] carta = player.Cards[index].BuildCard();
 
-                    if (player.Escolha == index || linha > 1)
+                    if (player.Choice == index || linha > 1)
                     {
-                        int indice = linha - (player.Escolha == index ? 0 : 2);
+                        int indice = linha - (player.Choice == index ? 0 : 2);
                         string valorExibido = (indice >= 0 && indice < carta.Length) ? carta[indice] : "      ";
                         Console.Write("   " + valorExibido);
                     }

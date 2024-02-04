@@ -5,40 +5,40 @@ namespace TruCoNsole.Domain.Entity;
 
 public class Card
 {
-    public Card(byte nipe, byte value)
+    public Card(byte suit, byte value)
     {
-        Nipe = (ENipe)nipe;
+        Suit = (ESuit)suit;
         Value = (EValueCard)value;
     }
 
-    public ENipe Nipe { get; set; }
+    public ESuit Suit { get; set; }
     public EValueCard Value { get; set; }
     public bool Manilha { get; set; }
-    public bool Usada { get; set; }
+    public bool Used { get; set; }
 
-    public string[] MontaCarta()
+    public string[] BuildCard()
     {
-        string[] carta = new string[5];
+        string[] card = new string[5];
 
-        carta[0] = "+----+";
-        carta[1] = $"|{Value.GetDescription()}   |";
-        carta[2] = $"| {Nipe.GetDescription()} |";
-        carta[3] = $"|   {Value.GetDescription()}|";
-        carta[4] = "+----+";
+        card[0] = "+----+";
+        card[1] = $"|{Value.GetDescription()}   |";
+        card[2] = $"| {Suit.GetDescription()} |";
+        card[3] = $"|   {Value.GetDescription()}|";
+        card[4] = "+----+";
 
-        return carta;
+        return card;
     }
 
-    public string[] MontaCartaBunda()
+    public string[] BuildBackCard()
     {
-        string[] carta = new string[5];
+        string[] card = new string[5];
 
-        carta[0] = "+----+";
-        carta[1] = "|/\\\\/|";
-        carta[2] = "|\\//\\|";
-        carta[3] = "|/\\/\\|";
-        carta[4] = "+----+";
+        card[0] = "+----+";
+        card[1] = "|/\\\\/|";
+        card[2] = "|\\//\\|";
+        card[3] = "|/\\/\\|";
+        card[4] = "+----+";
 
-        return carta;
+        return card;
     }
 }

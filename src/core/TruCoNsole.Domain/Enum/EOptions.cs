@@ -1,12 +1,12 @@
-﻿
-namespace TruCoNsole.Domain.Enum;
-
-public enum EOption
+﻿namespace TruCoNsole.Domain.Enum
 {
-    Carta1 = 0,
-    Carta2 = 1,
-    Carta3 = 2,
-    Truco = 3,
-    Sair = 4,
-    Reboot = 5,
+    public enum EOption
+    {
+        Card1 = 0,
+        Card2 = 1,
+        Card3 = 2,
+        Truco = 3,
+        Quit = 4,
+        Reboot = 5,
+    }
 }
