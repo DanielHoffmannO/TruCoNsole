@@ -1,10 +1,24 @@
 ﻿
-namespace TruCoNsole.Domain.Enum;
+using System.ComponentModel;
 
 public enum ENipe : byte
 {
-    Paus = 4,
-    Copas = 3,
-    Espadas = 2,
-    Ouros = 1,
+    [Description("♣️")]
+    Clube = 4,
+    [Description("♥️")]
+    Coracao = 3,
+    [Description("♠️")]
+    Espada = 2,
+    [Description("♦️")]
+    Diamante = 1,
+}
+
+public static class EnumExtensions
+{
+    public static string GetDescription(this Enum value)
+    {
+        var field = value.GetType().GetField(value.ToString());
+        var attribute = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
+        return attribute == null ? value.ToString() : attribute.Description;
+    }
 }
