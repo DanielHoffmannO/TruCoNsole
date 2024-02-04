@@ -29,10 +29,7 @@ public class Board
         var manilha = Tombo.Value == EValueCard.C3 ? EValueCard.C4 : (Tombo.Value + 1);
         Deck.Cards.ForEach(x => x.Manilha = x.Value == manilha);
     }
-    public Board()
-    {
-        Shuffle();
-    }
+    public Board() => Shuffle();
 
     public Deck Deck { get; set; }
     public Card Tombo { get; set; }

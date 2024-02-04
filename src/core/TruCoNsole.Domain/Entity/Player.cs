@@ -24,19 +24,7 @@ public class Player
         return Cards[Card];
     }
 
-    public Card[] CartasUsadas()
-    {
-        return Cards.Where(x => x.Usada).ToArray();
-    }
+    public Card[] CartasUsadas() => Cards.Where(x => x.Usada).ToArray();
 
-    public async Task<int> EscolherCarta(List<byte> cartasUsadas, string playerName)
-    {
-        await Task.Delay(1000);
-        return new Random().Next(3);
-    }
-
-    public void ResetTentos()
-    {
-        Tentos = 0;
-    }
+    public void ResetTentos() => Tentos = 0;
 }
