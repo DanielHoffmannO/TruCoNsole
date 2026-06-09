@@ -38,4 +38,11 @@ public class BaralhoService : IBaralhoService
         _cartas.RemoveRange(0, quantidade);
         return mao;
     }
+
+    public Carta Virar()
+    {
+        var carta = _cartas[0];
+        _cartas.RemoveAt(0);
+        return carta;
+    }
 }

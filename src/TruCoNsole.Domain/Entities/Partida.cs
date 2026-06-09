@@ -10,6 +10,7 @@ public class Partida
     public StatusPartida Status { get; set; } = StatusPartida.Aguardando;
     public int ValorMao { get; set; } = 1;
     public Jogador? VencedorMao { get; private set; }
+    public Carta? Vira { get; set; }
     public const int PontosParaVencer = 12;
 
     public Partida(Jogador jogador1, Jogador jogador2)

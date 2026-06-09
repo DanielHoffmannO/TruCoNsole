@@ -6,4 +6,5 @@ public interface IBaralhoService
 {
     void Embaralhar();
     List<Carta> Distribuir(int quantidade);
+    Carta Virar();
 }

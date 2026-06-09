@@ -14,16 +14,18 @@ public class Rodada
             CartaJogador2 = carta;
     }
 
-    public Jogador? Resolver(Jogador jogador1, Jogador jogador2)
+    public Jogador? Resolver(Jogador jogador1, Jogador jogador2, Carta? vira = null)
     {
         if (CartaJogador1 is null || CartaJogador2 is null)
             return null;
 
-        if (CartaJogador1.Forca > CartaJogador2.Forca)
+        var forca1 = CartaJogador1.ForcaComManilha(vira);
+        var forca2 = CartaJogador2.ForcaComManilha(vira);
+
+        if (forca1 > forca2)
             Vencedor = jogador1;
-        else if (CartaJogador2.Forca > CartaJogador1.Forca)
+        else if (forca2 > forca1)
             Vencedor = jogador2;
-        // empate = null (empardou)
 
         return Vencedor;
     }

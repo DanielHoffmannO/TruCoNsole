@@ -27,12 +27,13 @@ public class JogoService : IJogoService
         _baralho.Embaralhar();
         partida.Jogador1.ReceberCartas(_baralho.Distribuir(3));
         partida.Jogador2.ReceberCartas(_baralho.Distribuir(3));
+        partida.Vira = _baralho.Virar();
     }
 
     public Rodada IniciarRodada(Partida partida) => partida.NovaRodada();
 
     public Jogador? ResolverRodada(Rodada rodada, Partida partida)
-        => rodada.Resolver(partida.Jogador1, partida.Jogador2);
+        => rodada.Resolver(partida.Jogador1, partida.Jogador2, partida.Vira);
 
     public Jogador? ResolverMao(Partida partida) => partida.ResolverMao();
 
