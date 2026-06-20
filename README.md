@@ -1,3 +1,5 @@
+🌐 [English](README.en.md) | [Español](README.es.md)
+
 # 🃏 TruCoNsole
 
 Jogo de Truco Paulista no terminal — contra um bot com IA simples.
@@ -38,7 +40,3 @@ src/
 tests/
 └── TruCoNsole.Tests         ← xUnit
 ```
-
-## Autor
-
-Daniel Hoffmann
