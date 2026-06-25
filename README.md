@@ -1,32 +1,32 @@
-🌐 [English](README.en.md) | [Español](README.es.md)
+ðŸŒ [English](README.en.md) | [EspaÃ±ol](README.es.md)
 
-# 🃏 TruCoNsole
+# ðŸƒ TruCoNsole
 
 [![.NET CI](https://github.com/DanielHoffmannO/TruCoNsole/actions/workflows/dotnet.yml/badge.svg)](https://github.com/DanielHoffmannO/TruCoNsole/actions/workflows/dotnet.yml)
 ![.NET 9](https://img.shields.io/badge/.NET-9.0-purple)
 ![xUnit](https://img.shields.io/badge/tests-xUnit-blue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> Truco Paulista no terminal — desafie um bot com IA.
+> Truco Paulista no terminal â€” desafie um bot com IA.
 
-## 🎮 Gameplay
+## ðŸŽ® Gameplay
 
 ```
-┌───────────────────────────────┐
-│       BOT: [?]  [?]  [?]     │
-│                               │
-│      Mesa:  4♦   Q♠          │
-│                               │
-│      Você:  7♥   A♣   3♦     │
-├───────────────────────────────┤
-│  Placar: Você 6 x 3 Bot      │
-│  Truco! Vale 3               │
-└───────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚       BOT: [?]  [?]  [?]     â”‚
+â”‚                               â”‚
+â”‚      Mesa:  4â™¦   Qâ™           â”‚
+â”‚                               â”‚
+â”‚      VocÃª:  7â™¥   Aâ™£   3â™¦     â”‚
+â”œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¤
+â”‚  Placar: VocÃª 6 x 3 Bot      â”‚
+â”‚  Truco! Vale 3               â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-Jogue cartas, peça truco e blefe até chegar a 12 pontos!
+Jogue cartas, peÃ§a truco e blefe atÃ© chegar a 12 pontos!
 
-## 🛠️ Tech Stack
+## ðŸ› ï¸ Tech Stack
 
 | Tecnologia | Uso |
 |---|---|
@@ -36,10 +36,10 @@ Jogue cartas, peça truco e blefe até chegar a 12 pontos!
 | xUnit | Testes automatizados |
 | GitHub Actions | CI/CD |
 
-## 🚀 Como Jogar
+## ðŸš€ Como Jogar
 
 ```bash
-# Clone o repositório
+# Clone o repositÃ³rio
 git clone https://github.com/DanielHoffmannO/TruCoNsole.git
 cd TruCoNsole
 
@@ -49,24 +49,24 @@ dotnet run --project src/TruCoNsole.Console
 
 ### Controles
 
-- Escolha a carta pelo número exibido
-- `T` — Pedir Truco
-- `A` — Aceitar truco
-- `R` — Recusar truco (correr)
+- Escolha a carta pelo nÃºmero exibido
+- `T` â€” Pedir Truco
+- `A` â€” Aceitar truco
+- `R` â€” Recusar truco (correr)
 
-## 📜 Regras
+## ðŸ“œ Regras
 
 - **Baralho:** 40 cartas (sem 8, 9, 10 e coringas)
 - **Objetivo:** Primeiro a **12 pontos** vence a partida
-- **Rodada:** Melhor de 3 — cada jogador joga 1 carta por vez
+- **Rodada:** Melhor de 3 â€” cada jogador joga 1 carta por vez
 - **Truco:** Pode pedir para aumentar a aposta:
-  - Normal → **Truco** (3 pontos)
-  - Truco → **Seis** (6 pontos)
-  - Seis → **Nove** (9 pontos)
-  - Nove → **Doze** (12 pontos)
+  - Normal â†’ **Truco** (3 pontos)
+  - Truco â†’ **Seis** (6 pontos)
+  - Seis â†’ **Nove** (9 pontos)
+  - Nove â†’ **Doze** (12 pontos)
 - **Manilhas:** Definidas pela carta virada (vira), seguindo a ordem do Truco Paulista
 
-## 🧪 Testes
+## ðŸ§ª Testes
 
 ```bash
 dotnet test
@@ -74,35 +74,35 @@ dotnet test
 
 Cobertura de testes com xUnit:
 
-- `PartidaTests` — Lógica de partida e pontuação
-- `JogoServiceTests` — Fluxo de jogo e regras
-- `BaralhoServiceTests` — Embaralhamento e distribuição de cartas
+- `PartidaTests` â€” LÃ³gica de partida e pontuaÃ§Ã£o
+- `JogoServiceTests` â€” Fluxo de jogo e regras
+- `BaralhoServiceTests` â€” Embaralhamento e distribuiÃ§Ã£o de cartas
 
-## 🏗️ Arquitetura
+## ðŸ—ï¸ Arquitetura
 
 Projeto organizado com **DDD (Domain-Driven Design)**:
 
 ```
 src/
-├── TruCoNsole.Domain/          # Núcleo do domínio
-│   ├── Entities/               # Carta, Jogador, Partida, Rodada
-│   ├── Enums/                  # Naipe, Valor, StatusPartida
-│   └── Interfaces/             # Contratos de serviços
-│
-├── TruCoNsole.Application/     # Camada de aplicação
-│   └── Services/               # JogoService, BaralhoService, BotService
-│
-└── TruCoNsole.Console/         # Interface do terminal
-    └── MesaRenderer.cs         # Renderização ASCII da mesa
+â”œâ”€â”€ TruCoNsole.Domain/          # NÃºcleo do domÃ­nio
+â”‚   â”œâ”€â”€ Entities/               # Carta, Jogador, Partida, Rodada
+â”‚   â”œâ”€â”€ Enums/                  # Naipe, Valor, StatusPartida
+â”‚   â””â”€â”€ Interfaces/             # Contratos de serviÃ§os
+â”‚
+â”œâ”€â”€ TruCoNsole.Application/     # Camada de aplicaÃ§Ã£o
+â”‚   â””â”€â”€ Services/               # JogoService, BaralhoService, BotService
+â”‚
+â””â”€â”€ TruCoNsole.Console/         # Interface do terminal
+    â””â”€â”€ MesaRenderer.cs         # RenderizaÃ§Ã£o ASCII da mesa
 
 tests/
-└── TruCoNsole.Tests/           # Testes unitários (xUnit)
+â””â”€â”€ TruCoNsole.Tests/           # Testes unitÃ¡rios (xUnit)
 ```
 
-## 📄 Licença
+## ðŸ“„ LicenÃ§a
 
-Este projeto está sob a licença [MIT](LICENSE).
+Este projeto estÃ¡ sob a licenÃ§a [MIT](LICENSE).
 
-## 👤 Autor
+## ðŸ‘¤ Autor
 
-**Daniel Hoffmann** — [@DanielHoffmannO](https://github.com/DanielHoffmannO)
+**Daniel Hoffmann** â€” [@DanielHoffmannO](https://github.com/DanielHoffmannO)
